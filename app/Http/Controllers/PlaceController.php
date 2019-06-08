@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Place;
+use Auth;
 
 class PlaceController extends Controller
 {
@@ -36,11 +37,13 @@ class PlaceController extends Controller
     public function store(Request $request)
     {
         Place::create([
-            'title' => $request->name,
+            'title' => $request->title,
             'address' => $request->address,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
             'content' => $request->content,
-            'picture' => $request->image,
-            'type' => $request->type,
+            'picture' => $request->picture,
+            'type' => $request->filled('newtype') ? $request->newtype : $request->type,
             'owner_id' => Auth::id()
         ]);
 

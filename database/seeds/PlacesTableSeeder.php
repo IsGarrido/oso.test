@@ -29,7 +29,9 @@ class PlacesTableSeeder extends Seeder
 	            'content' => $faker->paragraphs(3, true),
 	            'picture' => $faker->imageUrl,
                 'type' => $faker->randomElement(['Restaurante', 'Bar', 'Cafetería', "Sala de conciertos", "Museo"]),
-                'owner_id' => $faker->randomElement($ids)
+                'owner_id' => $faker->randomElement($ids),
+                'latitude' => $faker->latitude,
+                'longitude' => $faker->longitude
 	        ]);
         }
     }

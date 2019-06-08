@@ -15,4 +15,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::resource('places', 'PlaceController');
+Route::resource('places', 'PlaceController')
+->middleware('auth', ['except' => "index"]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
