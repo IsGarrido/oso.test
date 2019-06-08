@@ -3,6 +3,17 @@
 @section('title', 'Page Title Index')
 
 @section('content')
+
+
+<div class="container">
+        <div id="flow">
+            <span class="flow-1"></span>
+            <span class="flow-2"></span>
+            <span class="flow-3"></span>
+        </div>
+        <div class="section">
+                @include('template.search')
+
             <!-- Developers -->
             <div class="row columns">
                     <div class="column is-one-third">
@@ -88,6 +99,10 @@
                     </div>
                 </div>
                 <!-- End Developers -->
+        </div>
+    </div>
+
+
 
 
 

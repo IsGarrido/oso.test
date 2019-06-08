@@ -15,23 +15,26 @@
 
     @include('template.nav')
 
-    <div class="container">
-        <div id="flow">
-            <span class="flow-1"></span>
-            <span class="flow-2"></span>
-            <span class="flow-3"></span>
-        </div>
-        <div class="section">
-                @include('template.search')
 
-                @yield('content')
 
-        </div>
-    </div>
+    @yield('content')
 
-    @include('template.footer')
+
 
     <script src="https://bulmatemplates.github.io/bulma-templates/js/bulma.js"></script>
+
+
+    <style>
+    .message-body{
+        border-left-width: 0px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    html, body{
+        height: 100%;
+    }
+
+    </style>
 
 </body>
 
