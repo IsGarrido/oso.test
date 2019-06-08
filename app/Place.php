@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 
-class Place extends Moloquent
+class Place extends Model
 {
-    //
 }
