@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use App\User;
 
 class PlacesTableSeeder extends Seeder
 {
@@ -12,6 +13,10 @@ class PlacesTableSeeder extends Seeder
      */
     public function run()
     {
+        $ids = User::all("id")->map(function($user){
+            return $user->_id;
+        });
+
         // Clear db
         DB::table('places')->delete();
 
@@ -23,7 +28,8 @@ class PlacesTableSeeder extends Seeder
                 'address' => $faker->address,
 	            'content' => $faker->paragraphs(3, true),
 	            'picture' => $faker->imageUrl,
-	            'type' => $faker->randomElement(['Restaurante', 'Bar', 'Cafetería', "Sala de conciertos", "Museo"]),
+                'type' => $faker->randomElement(['Restaurante', 'Bar', 'Cafetería', "Sala de conciertos", "Museo"]),
+                'owner_id' => $faker->randomElement($ids)
 	        ]);
         }
     }
