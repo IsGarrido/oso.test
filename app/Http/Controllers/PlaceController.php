@@ -15,7 +15,8 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        dd(Place::all());
+        $places = Place::all();
+        return view("place.list",["places" => $places]);
     }
 
     /**
@@ -25,7 +26,7 @@ class PlaceController extends Controller
      */
     public function create()
     {
-        return view("place.create");
+        return view("place.create", ["place" => new Place(), "action" => "store" ]);
     }
 
     /**
@@ -59,7 +60,10 @@ class PlaceController extends Controller
      */
     public function show($id)
     {
-        //
+        $place = Place::findOrFail($id);
+        $canEdit = true; //Auth::id() === $place->owner_id;
+
+        return view("place.show",[ "place" => $place, "canEdit" => $canEdit ] );
     }
 
     /**
@@ -70,7 +74,13 @@ class PlaceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $place = Place::findOrFail($id);
+        $canEdit = true; //Auth::id() === $place->owner_id;
+
+        if($canEdit)
+            return view("place.create", ["place" => $place, "action" => "update" ] );
+        else
+            return back();
     }
 
     /**
@@ -82,7 +92,20 @@ class PlaceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $place = Place::findOrFail($id);
+        $canEdit = true; //Auth::id() === $place->owner_id;
+
+        $place->title = $request->title;
+        $place->address = $request->address;
+        $place->longitude = $request->longitude;
+        $place->latitude = $request->latitude;
+        $place->content = $request->content;
+        $place->picture = $request->picture;
+        $place->type = $request->filled('newtype') ? $request->newtype : $request->type;
+
+        $place->save();
+
+        return back();
     }
 
     /**
@@ -93,6 +116,11 @@ class PlaceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $place = Place::findOrFail($id);
+        $canEdit = true; //Auth::id() === $place->owner_id;
+
+        if($canEdit)
+            $place->delete();
+        return back();
     }
 }

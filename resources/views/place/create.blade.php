@@ -1,15 +1,19 @@
 @extends('place.places')
 
-@section('title', 'Page Title Index')
+@section('title', 'Crear nueva localización')
 
 @section('content2')
 
-{{ Form::open(['action' => 'PlaceController@store']) }}
+{{ Form::open(['action' => ["PlaceController@".$action , $place->id]]) }}
+
+@if($action == "update")
+@method('patch')
+@endif
 
 <div class="field">
     <label class="label">Titulo</label>
     <div class="control">
-        {{ Form::text('title', null, ["class" => "input is-info", "placeholder" => 'Nombre del lugar']) }}
+        {{ Form::text('title', $place->title, ["class" => "input is-info", "placeholder" => 'Nombre del lugar']) }}
     </div>
 </div>
 
@@ -20,7 +24,7 @@
         <div class="field">
             <label class="label">Dirección</label>
             <div class="control">
-                {{ Form::text('address',null, ["class" => "input is-info", "placeholder" => 'Dirección']) }}
+                {{ Form::text('address',$place->address, ["class" => "input is-info", "placeholder" => 'Dirección']) }}
             </div>
         </div>
 
@@ -31,7 +35,7 @@
         <div class="field">
             <label class="label">Longitud</label>
             <div class="control">
-                {{ Form::text('longitude',  null, ["class" => "input is-info", "placeholder" => 'XXX.XXXXXXX']) }}
+                {{ Form::text('longitude',  $place->longitude, ["class" => "input is-info", "placeholder" => 'XXX.XXXXXXX']) }}
             </div>
         </div>
     </div>
@@ -42,7 +46,7 @@
         <div class="field">
             <label class="label">Latitud</label>
             <div class="control">
-                {{ Form::text('latitude', null, ["class" => "input is-info", "placeholder" => 'YYY.YYYYYYYY']) }}
+                {{ Form::text('latitude', $place->latitude, ["class" => "input is-info", "placeholder" => 'YYY.YYYYYYYY']) }}
             </div>
         </div>
     </div>
@@ -53,14 +57,14 @@
 <div class="field">
     <label class="label">Descripción</label>
     <div class="control">
-        {{ Form::textarea('content', null, ['class'=>'textarea is-info', "placeholder" => "Descripción"]) }}
+        {{ Form::textarea('content', $place->content, ['class'=>'textarea is-info', "placeholder" => "Descripción"]) }}
     </div>
 </div>
 
 <div class="field">
     <label class="label">Imagen</label>
     <div class="control">
-        {{ Form::text('picture', null, ["class" => "input is-info", "placeholder" => "URL"]) }}
+        {{ Form::text('picture', $place->picture, ["class" => "input is-info", "placeholder" => "URL"]) }}
     </div>
 </div>
 
@@ -73,7 +77,7 @@
             <label class="label">Categoría</label>
             <div class="control">
                 <div class="select is-fullwidth">
-                    {{ Form::select('type', ['L' => 'Large', 'S' => 'Small'], null, ["class" => "is-fullwidth"]) }}
+                    {{ Form::select('type', ['L' => 'Large', 'S' => 'Small'], $place->type, ["class" => "is-fullwidth"]) }}
                 </div>
 
             </div>
@@ -101,6 +105,16 @@
     <div class="control">
         <button class="button is-text">Cancelar</button>
     </div>
+
+    @if($action == "update")
+
+    <span>
+        <a class="button is-text" href=" {{ URL::to('places/'.$place->id) }}">Ver</a>
+    </span>
+
+
+
+    @endif
 </div>
 {{ Form::close() }}
 

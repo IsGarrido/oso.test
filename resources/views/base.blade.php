@@ -33,6 +33,16 @@
     html, body{
         height: 100%;
     }
+    .place-detail{
+        margin-top: 10px;
+        background-color: #e4e4e4;
+        /* border: 1px solid grey; */
+        padding: 10px;
+    }
+
+    .place-detail> .subtitle{
+        margin-bottom: 5px;
+    }
 
     </style>
 

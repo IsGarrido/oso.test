@@ -22,6 +22,7 @@ class CreatePlacesTable extends Migration
             $table->string("content");
             $table->string("picture");
             $table->string("type");
+            $table->softDeletes();
             $table->foreign('owner_id')->references('id')->on('user');
         });
     }
