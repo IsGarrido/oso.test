@@ -1,4 +1,4 @@
-@extends('place.places')
+@extends('user.user')
 
 @section('title', "List")
 

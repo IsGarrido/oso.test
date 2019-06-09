@@ -23,7 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where("is_admin",false)->get();
+        $users = User::where("is_admin","!=",true)->get();
         return view("user.list", ["users" => $users]);
     }
 

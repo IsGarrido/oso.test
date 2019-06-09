@@ -19,6 +19,9 @@
                 <a class="navbar-item" href="{{ action('PlaceController@index') }}">
                     List
                 </a>
+                <a class="navbar-item" href="/login">
+                    Entrar
+                </a>
                 <!--
                 <a class="navbar-item">
                         Features
@@ -56,6 +59,7 @@
                         </div>
                     </div>
                 </div>
+
                 @endif
 
             </div>
