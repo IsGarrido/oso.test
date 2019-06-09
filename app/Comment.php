@@ -12,7 +12,7 @@ class Comment extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'guest_name', 'content', 'rating', 'place_id'
+        'guest_name', 'content', 'is_positive', 'place_id'
     ];
 
     protected $dates = [

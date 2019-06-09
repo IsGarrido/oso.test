@@ -31,12 +31,8 @@
                 {{ Form::open(["action" => ["PlaceController@destroy", $place->id], "class" => "is-inline"]) }}
                 @method('delete')
                 {{ Form::submit("Eliminar",["class" => "button is-danger is-inline"]) }}
-                <!--<a class="button is-text is-danger" href=" {{ URL::to('places/'.$place->id."") }}">Eliminar</a> -->
                 {{ Form::close() }}
             </div>
-
-            @else
-            <!--{{ $place->owner_id }}-->
             @endif
 
 
@@ -99,6 +95,29 @@
         </div>
 
     </div>
+
+    <div class="column">
+
+        <div class="field">
+            <label class="label">Valoración</label>
+            <div class="control">
+                <div class="select is-fullwidth">
+
+                    <select name="is_positive" class="is-fullwidth is-info">
+                        <option value="true"> Mi valoración es positiva </option>
+                        <option value="false"> Mi valoración es negativa </option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
 </div>
 
 <article class="media">
@@ -126,7 +145,7 @@
 <article class="media">
     <figure class="media-left">
         <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png">
+            <img src="{{ $comment->is_positive ? asset("img/positive.png") : asset("img/negative.png") }}">
         </p>
     </figure>
     <div class="media-content">
@@ -139,15 +158,14 @@
             </p>
         </div>
     </div>
+    @if($canEdit)
     <div class="media-right">
         {{ Form::open(["action" => ["CommentController@destroy", $comment->id], "class" => "is-inline"]) }}
         @method('delete')
         {{ Form::button("Eliminar",["class" => "delete", "type" => "submit"]) }}
-        <!--<a class="button is-text is-danger" href=" {{ URL::to('places/'.$place->id."") }}">Eliminar</a> -->
         {{ Form::close() }}
-
-        <!--<button class="delete"></button>-->
     </div>
+    @endif
 </article>
 
 @empty

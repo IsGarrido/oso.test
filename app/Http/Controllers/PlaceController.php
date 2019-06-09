@@ -78,7 +78,6 @@ class PlaceController extends Controller
         $place = Place::findOrFail($id);
         $comments = Comment::where("place_id", $id)->get();
         $canEdit = Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id);
-
         $dates = array();
 
         for($i = 0; $i < 3; $i++){

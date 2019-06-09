@@ -5,6 +5,7 @@ use Faker\Factory as Faker;
 
 use App\Place;
 use App\Comment;
+use Carbon\Carbon;
 
 class CommentsTableSeeder extends Seeder
 {
@@ -24,13 +25,15 @@ class CommentsTableSeeder extends Seeder
         DB::table('comments')->delete();
 
         $faker = Faker::create("es_ES");
+        $date = Carbon::today()->subDays(30);
 
         foreach (range(1,count($ids)*5) as $index) {
 	        Comment::create([
                 'guest_name' => $faker->name,
                 'content' => $faker->sentence()."\n".$faker->sentence(),
-                'rating' => $faker->numberBetween(0, 10),
-                'place_id' => $faker->randomElement($ids)
+                'is_positive' => $faker->boolean,
+                'place_id' => $faker->randomElement($ids),
+                'created_at' => $date->addDays(rand(0,10))->addHours(rand(0,20)),
 	        ]);
         }
     }

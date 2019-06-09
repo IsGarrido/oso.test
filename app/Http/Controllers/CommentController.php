@@ -39,7 +39,10 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        Comment::create($request->toArray());
+        $arr = $request->toArray();
+        $arr["is_positive"] = $arr["is_positive"] === "true";
+        //dd($request->toArray(),$arr);
+        Comment::create($arr);
         return back();
     }
 
