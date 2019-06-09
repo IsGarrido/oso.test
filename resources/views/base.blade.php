@@ -31,11 +31,11 @@
         margin-bottom: 30px;
     }
     body{
-        height: 100%;
+        background-color: white
     }
     .place-detail{
         margin-top: 10px;
-        background-color: #e4e4e4;
+        background-color: #dff3ff;;
         /* border: 1px solid grey; */
         padding: 10px;
     }
@@ -44,9 +44,12 @@
         margin-bottom: 5px;
     }
 
+    .container__base{
+        box-shadow: 0 0 3px;
+    }
+
     </style>
 
-    <div class="footer" style="margin-bottom 300px"></div>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container message is-info">
+    <div class="container container__base message is-info">
         <div class="message-body" style="">
 
             @yield("content2")

@@ -1,9 +1,9 @@
 <!-- START NAV -->
-<nav class="navbar">
+<nav class="navbar is-info">
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item" href="../">
-                    <img src="../images/bulma.png" alt="Logo">
+                Ocio, Solo Ocio
                 </a>
             <span class="navbar-burger burger" data-target="navbarMenu">
                     <span></span>
@@ -16,9 +16,10 @@
                 <a class="navbar-item is-active">
                         Home
                     </a>
-                <a class="navbar-item">
-                        Examples
+                <a class="navbar-item" href="{{ action('PlaceController@index') }}">
+                        List
                     </a>
+                    <!--
                 <a class="navbar-item">
                         Features
                     </a>
@@ -31,26 +32,32 @@
                 <a class="navbar-item">
                         Help
                     </a>
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                            Account
-                        </a>
-                    <div class="navbar-dropdown">
-                        <a class="navbar-item">
-                                Dashboard
+                -->
+                @if(Auth::check())
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                                Cuenta
                             </a>
-                        <a class="navbar-item">
-                                Profile
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" href="{{ action('PlaceController@show',["id" => Auth::id() ]) }}">
+                                    Mi cuenta
+                                </a>
+                            @if(Auth::user()->is_admin)
+                            <a class="navbar-item">
+                                    Administrar usuarios
                             </a>
-                        <a class="navbar-item">
-                                Settings
-                            </a>
-                        <hr class="navbar-divider">
-                        <div class="navbar-item">
-                            Logout
+                            @endif
+                            <a class="navbar-item">
+                                    Settings
+                                </a>
+                            <hr class="navbar-divider">
+                            <div class="navbar-item">
+                                Logout
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
+
             </div>
         </div>
     </div>
