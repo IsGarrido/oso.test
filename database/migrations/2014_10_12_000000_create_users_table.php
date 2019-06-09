@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
 
 
             //
-            $table->boolean('is_admin');
+            $table->boolean('is_admin')->default(false);
             $table->boolean('is_blocked');
         });
     }

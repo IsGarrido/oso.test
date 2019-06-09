@@ -18,6 +18,7 @@ class PlaceController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
 
     }
+
     /**
      * Display a listing of the resource.
      *

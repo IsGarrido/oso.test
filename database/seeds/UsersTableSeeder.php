@@ -34,6 +34,7 @@ class UsersTableSeeder extends Seeder
 	            'name' => $faker->name,
 	            'email' => $faker->email,
                 'password' => bcrypt('secret'),
+                'is_admin' => false,
                 'is_blocked' => false
 	        ]);
         }

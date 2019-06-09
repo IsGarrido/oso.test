@@ -19,6 +19,10 @@ Route::resource('places', 'PlaceController');
 
 Route::resource('comment', 'CommentController');
 
+Route::resource('user', 'UserController');
+Route::patch('user/toggleblock/{id}', 'UserController@toggleblock');
+
 Auth::routes();
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');

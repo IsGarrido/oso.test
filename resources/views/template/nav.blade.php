@@ -4,22 +4,22 @@
         <div class="navbar-brand">
             <a class="navbar-item" href="../">
                 Ocio, Solo Ocio
-                </a>
+            </a>
             <span class="navbar-burger burger" data-target="navbarMenu">
-                    <span></span>
-            <span></span>
-            <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </span>
         </div>
         <div id="navbarMenu" class="navbar-menu">
             <div class="navbar-end">
                 <a class="navbar-item is-active">
-                        Home
-                    </a>
+                    Home
+                </a>
                 <a class="navbar-item" href="{{ action('PlaceController@index') }}">
-                        List
-                    </a>
-                    <!--
+                    List
+                </a>
+                <!--
                 <a class="navbar-item">
                         Features
                     </a>
@@ -34,28 +34,28 @@
                     </a>
                 -->
                 @if(Auth::check())
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">
-                                Cuenta
-                            </a>
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item" href="{{ action('PlaceController@show',["id" => Auth::id() ]) }}">
-                                    Mi cuenta
-                                </a>
-                            @if(Auth::user()->is_admin)
-                            <a class="navbar-item">
-                                    Administrar usuarios
-                            </a>
-                            @endif
-                            <a class="navbar-item">
-                                    Settings
-                                </a>
-                            <hr class="navbar-divider">
-                            <div class="navbar-item">
-                                Logout
-                            </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Cuenta
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{{ action('PlaceController@show',["id" => Auth::id() ]) }}">
+                            Mi cuenta
+                        </a>
+                        @if(Auth::user()->is_admin)
+                        <a class="navbar-item">
+                            Administrar usuarios
+                        </a>
+                        @endif
+                        <a class="navbar-item">
+                            Settings
+                        </a>
+                        <hr class="navbar-divider">
+                        <div class="navbar-item">
+                            <a href="/logout">Salir</a>
                         </div>
                     </div>
+                </div>
                 @endif
 
             </div>
