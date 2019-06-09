@@ -1,6 +1,6 @@
 @extends('place.places')
 
-@section('title', 'Crear nueva localización')
+@section('title', $action == "update" ? 'Actualizar nueva localización' : "Crear nueva localización" )
 
 @section('content2')
 
@@ -77,7 +77,15 @@
             <label class="label">Categoría</label>
             <div class="control">
                 <div class="select is-fullwidth">
-                    {{ Form::select('type', $placeTypes, $place->type, ["class" => "is-fullwidth"]) }}
+
+                    <div class="select is-fullwidth">
+                        <select name="type">
+                            @foreach($placeTypes as $type)
+                            <option value="{{ $type }}" @if($type===$place->type) "selected" @endif>{{ $type }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                 </div>
 
             </div>
@@ -95,7 +103,18 @@
         </div>
     </div>
 
+</div>
 
+<div class="columns">
+    <div class="column">
+
+        <label class="checkbox">
+            {{ Form::checkbox('is_bookable', null ,$place->is_bookable) }}
+            Activar reservas
+        </label>
+
+
+    </div>
 </div>
 
 <div class="field is-grouped">

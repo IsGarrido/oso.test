@@ -17,11 +17,13 @@
                     Home
                 </a>
                 <a class="navbar-item" href="{{ action('PlaceController@index') }}">
-                    List
+                    Listado de lugares
                 </a>
+                @if(!Auth::check())
                 <a class="navbar-item" href="/login">
                     Entrar
                 </a>
+                @endif
                 <!--
                 <a class="navbar-item">
                         Features
@@ -42,11 +44,11 @@
                         Cuenta
                     </a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="{{ action('PlaceController@show',["id" => Auth::id() ]) }}">
+                        <a class="navbar-item" href="{{ action('UserController@show',["id" => Auth::id() ]) }}">
                             Mi cuenta
                         </a>
                         @if(Auth::user()->is_admin)
-                        <a class="navbar-item">
+                        <a class="navbar-item" href="{{ action('UserController@index') }}">
                             Administrar usuarios
                         </a>
                         @endif

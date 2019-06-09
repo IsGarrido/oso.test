@@ -33,7 +33,8 @@ class PlacesTableSeeder extends Seeder
                 'type' => $faker->randomElement(['Restaurante', 'Bar', 'Cafetería', "Sala de conciertos", "Museo"]),
                 'owner_id' => $faker->randomElement($ids),
                 'latitude' => $faker->latitude,
-                'longitude' => $faker->longitude
+                'longitude' => $faker->longitude,
+                'is_bookable' => $faker->boolean
             ]);
         }
 

@@ -42,6 +42,37 @@
 
         </div>
 
+        <!-- Reservas -->
+        <div class="place-detail">
+            <p class="subtitle">Reservar</p>
+            {{ Form::open(['action' => ["BookingController@store"]]) }}
+            {{ Form::hidden('place_id',$place->id) }}
+
+            <div class="columns">
+                <div class="column">
+                    {{ Form::text('name', Auth::check() ? Auth::user()->name : null, ["class" => "input is-info", "placeholder" => 'Nombre']) }}
+                </div>
+                <div class="column">
+                    {{ Form::text('email', Auth::check() ? Auth::user()->email : null, ["class" => "input is-info is-fullwidth", "placeholder" => 'Mail']) }}
+                </div>
+                <div class="column">
+
+                    <div class="select ">
+                        <select name="date" class="">
+                            @foreach($booking_dates as $date)
+                            <option value="{{ $date }} ">{{ $date }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                </div>
+                <div class="column">
+                    {{ Form::submit("Reservar",["class" => "button is-info is-inline"]) }}
+                </div>
+            </div>
+
+            {{ Form::close() }}
+        </div>
 
     </div>
 
@@ -109,11 +140,11 @@
         </div>
     </div>
     <div class="media-right">
-            {{ Form::open(["action" => ["CommentController@destroy", $comment->id], "class" => "is-inline"]) }}
-            @method('delete')
-            {{ Form::button("Eliminar",["class" => "delete", "type" => "submit"]) }}
-            <!--<a class="button is-text is-danger" href=" {{ URL::to('places/'.$place->id."") }}">Eliminar</a> -->
-            {{ Form::close() }}
+        {{ Form::open(["action" => ["CommentController@destroy", $comment->id], "class" => "is-inline"]) }}
+        @method('delete')
+        {{ Form::button("Eliminar",["class" => "delete", "type" => "submit"]) }}
+        <!--<a class="button is-text is-danger" href=" {{ URL::to('places/'.$place->id."") }}">Eliminar</a> -->
+        {{ Form::close() }}
 
         <!--<button class="delete"></button>-->
     </div>

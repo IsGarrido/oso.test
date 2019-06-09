@@ -3,10 +3,12 @@
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
-use App\Place;
-use App\Comment;
 
-class CommentsTableSeeder extends Seeder
+use App\Place;
+use App\Booking;
+use Carbon\Carbon;
+
+class BookingTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -21,17 +23,19 @@ class CommentsTableSeeder extends Seeder
         });
 
         // Clear db
-        DB::table('comments')->delete();
+        DB::table('bookings')->delete();
 
         $faker = Faker::create("es_ES");
+        $date = Carbon::today();
 
         foreach (range(1,count($ids)*5) as $index) {
-	        Comment::create([
+	        Booking::create([
                 'guest_name' => $faker->name,
-                'content' => $faker->sentence()."\n".$faker->sentence(),
-                'rating' => $faker->numberBetween(0, 10),
+                'guest_email' => $faker->email,
+                'date' => $date->addDays(rand(0,3))->addHours(rand(18,23)),
                 'place_id' => $faker->randomElement($ids)
 	        ]);
         }
+
     }
 }

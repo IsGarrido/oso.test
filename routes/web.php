@@ -18,10 +18,10 @@ Route::group(['middleware' => ['checkRole']], function () {
     });
 
     Route::resource('places', 'PlaceController');
-
     Route::resource('comment', 'CommentController');
-
     Route::resource('user', 'UserController');
+    Route::resource('book', 'BookingController');
+
     Route::patch('user/toggleblock/{id}', 'UserController@toggleblock');
 
     Auth::routes();

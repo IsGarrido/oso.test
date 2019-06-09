@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Place;
 use App\Comment;
 
+use Illuminate\Support\Carbon;
+
 use Auth;
 
 
@@ -57,6 +59,7 @@ class PlaceController extends Controller
             'content' => $request->content,
             'picture' => $request->picture,
             'type' => $request->filled('newtype') ? $request->newtype : $request->type,
+            'is_bookable' => $request->has('is_bookable'),
             'owner_id' => Auth::id()
         ]);
 
@@ -76,7 +79,16 @@ class PlaceController extends Controller
         $comments = Comment::where("place_id", $id)->get();
         $canEdit = Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id);
 
-        return view("place.show",[ "place" => $place, "comments" => $comments, "canEdit" => $canEdit ] );
+        $dates = array();
+
+        for($i = 0; $i < 3; $i++){
+            array_push($dates, Carbon::today()->add($i, 'day')->add(18,'hour'));
+            array_push($dates, Carbon::today()->add($i, 'day')->add(20,'hour'));
+            array_push($dates, Carbon::today()->add($i, 'day')->add(22,'hour'));
+        }
+
+
+        return view("place.show",[ "place" => $place, "comments" => $comments, "canEdit" => $canEdit, "booking_dates" => $dates ] );
     }
 
     /**
@@ -118,6 +130,7 @@ class PlaceController extends Controller
         $place->latitude = $request->latitude;
         $place->content = $request->content;
         $place->picture = $request->picture;
+        $place->is_bookable = $request->has('is_bookable');
         $place->type = $request->filled('newtype') ? $request->newtype : $request->type;
 
         $place->save();
