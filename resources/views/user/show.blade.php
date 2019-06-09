@@ -44,7 +44,7 @@
 
         @forelse ($places as $place)
         <tr>
-            <th>{{ $place->title }}</th>
+            <th><a href="{{action("PlaceController@show",["id" => $place->id]) }}">{{ $place->title }}</th>
             <td>{{ $place->address }}</td>
             <td>{{ $place->type }}</td>
             <td>{{ $place->is_bookable === false ? "Si" : "No" }}</td>
@@ -66,9 +66,10 @@
             </td>
         </tr>
         @empty
-        Sin contenido
-        @endforelse
     </tbody>
+</table>
+@endforelse
+</tbody>
 </table>
 
 

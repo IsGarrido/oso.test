@@ -13,9 +13,6 @@
         </div>
         <div id="navbarMenu" class="navbar-menu">
             <div class="navbar-end">
-                <a class="navbar-item is-active">
-                    Home
-                </a>
                 <a class="navbar-item" href="{{ action('PlaceController@index') }}">
                     Listado de lugares
                 </a>
@@ -24,20 +21,7 @@
                     Entrar
                 </a>
                 @endif
-                <!--
-                <a class="navbar-item">
-                        Features
-                    </a>
-                <a class="navbar-item">
-                        Team
-                    </a>
-                <a class="navbar-item">
-                        Archives
-                    </a>
-                <a class="navbar-item">
-                        Help
-                    </a>
-                -->
+
                 @if(Auth::check())
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
@@ -52,9 +36,6 @@
                             Administrar usuarios
                         </a>
                         @endif
-                        <a class="navbar-item">
-                            Settings
-                        </a>
                         <hr class="navbar-divider">
                         <div class="navbar-item">
                             <a href="/logout">Salir</a>

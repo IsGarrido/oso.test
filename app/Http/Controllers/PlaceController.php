@@ -157,7 +157,7 @@ class PlaceController extends Controller
         }
 
 
-        return redirect()->action("PlaceController@index");
+        return redirect()->action('UserController@show',["id" => $place->owner_id]);
     }
 
 }
