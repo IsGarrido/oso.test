@@ -77,7 +77,7 @@
             <label class="label">Categoría</label>
             <div class="control">
                 <div class="select is-fullwidth">
-                    {{ Form::select('type', ['L' => 'Large', 'S' => 'Small'], $place->type, ["class" => "is-fullwidth"]) }}
+                    {{ Form::select('type', $placeTypes, $place->type, ["class" => "is-fullwidth"]) }}
                 </div>
 
             </div>

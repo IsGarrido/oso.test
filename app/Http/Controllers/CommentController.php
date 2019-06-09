@@ -18,7 +18,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        return redirect()->action("PlaceController@index");
     }
 
     /**
@@ -28,7 +28,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->action("PlaceController@index");
     }
 
     /**

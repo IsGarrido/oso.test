@@ -36,7 +36,8 @@ class PlaceController extends Controller
      */
     public function create()
     {
-        return view("place.create", ["place" => new Place(), "action" => "store" ]);
+        $placeTypes =  Place::groupBy("type")->pluck("type")->toArray();
+        return view("place.create", ["place" => new Place(), "action" => "store", "placeTypes" => $placeTypes ]);
     }
 
     /**
@@ -47,7 +48,7 @@ class PlaceController extends Controller
      */
     public function store(Request $request)
     {
-        Place::create([
+        $place = Place::create([
             'title' => $request->title,
             'address' => $request->address,
             'longitude' => $request->longitude,
@@ -58,7 +59,7 @@ class PlaceController extends Controller
             'owner_id' => Auth::id()
         ]);
 
-        return back();
+        return redirect()->action('PlaceController@show',["id" => $place->id]);
 
     }
 
@@ -87,9 +88,10 @@ class PlaceController extends Controller
     {
         $place = Place::findOrFail($id);
         $canEdit = Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id);
+        $placeTypes =  Place::groupBy("type")->pluck("type")->toArray();
 
         if($canEdit)
-            return view("place.create", ["place" => $place, "action" => "update" ] );
+            return view("place.create", ["place" => $place, "action" => "update", "placeTypes" => $placeTypes ] );
         else
             return redirect()->action("PlaceController@index");
 
@@ -131,9 +133,16 @@ class PlaceController extends Controller
     public function destroy($id)
     {
         $place = Place::findOrFail($id);
+        $comments = Comment::where("place_id", $place->id)->get();
 
-        if(Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id))
+        if(Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id)){
+
+            foreach($comments as $comment)
+                $comment->delete();
+
             $place->delete();
+        }
+
 
         return redirect()->action("PlaceController@index");
     }
