@@ -30,7 +30,7 @@
         margin-top: 30px;
         margin-bottom: 30px;
     }
-    html, body{
+    body{
         height: 100%;
     }
     .place-detail{
@@ -46,6 +46,7 @@
 
     </style>
 
+    <div class="footer" style="margin-bottom 300px"></div>
 </body>
 
 </html>

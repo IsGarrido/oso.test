@@ -4,11 +4,15 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 use Jenssegers\Mongodb\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
+
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
@@ -35,5 +39,11 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 }

@@ -2,7 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+
 use App\Place;
+use App\Comment;
 
 class CommentsTableSeeder extends Seeder
 {
@@ -23,12 +25,12 @@ class CommentsTableSeeder extends Seeder
         // Clear db
         DB::table('comments')->delete();
 
-        $faker = Faker::create();
+        $faker = Faker::create("es_ES");
 
         foreach (range(1,count($ids)*5) as $index) {
-	        DB::table('comments')->insert([
+	        Comment::create([
                 'guest_name' => $faker->name,
-                'content' => $faker->sentences(2),
+                'content' => $faker->sentence()."\n".$faker->sentence(),
                 'rating' => $faker->numberBetween(0, 10),
                 'place_id' => $faker->randomElement($ids)
 	        ]);

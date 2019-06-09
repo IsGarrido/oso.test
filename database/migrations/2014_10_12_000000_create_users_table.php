@@ -22,8 +22,10 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            // 
+
+            //
             $table->boolean('is_admin');
+            $table->boolean('is_blocked');
         });
     }
 

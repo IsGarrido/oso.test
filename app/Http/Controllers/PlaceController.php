@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Place;
+use App\Comment;
+
 use Auth;
+
 
 class PlaceController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -61,9 +71,10 @@ class PlaceController extends Controller
     public function show($id)
     {
         $place = Place::findOrFail($id);
-        $canEdit = true; //Auth::id() === $place->owner_id;
+        $comments = Comment::where("place_id", $id)->get();
+        $canEdit = Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id);
 
-        return view("place.show",[ "place" => $place, "canEdit" => $canEdit ] );
+        return view("place.show",[ "place" => $place, "comments" => $comments, "canEdit" => $canEdit ] );
     }
 
     /**
@@ -75,12 +86,13 @@ class PlaceController extends Controller
     public function edit($id)
     {
         $place = Place::findOrFail($id);
-        $canEdit = true; //Auth::id() === $place->owner_id;
+        $canEdit = Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id);
 
         if($canEdit)
             return view("place.create", ["place" => $place, "action" => "update" ] );
         else
-            return back();
+            return redirect()->action("PlaceController@index");
+
     }
 
     /**
@@ -93,7 +105,9 @@ class PlaceController extends Controller
     public function update(Request $request, $id)
     {
         $place = Place::findOrFail($id);
-        $canEdit = true; //Auth::id() === $place->owner_id;
+        $canEdit = Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id);
+        if(!$canEdit)
+            return redirect()->action("PlaceController@index");
 
         $place->title = $request->title;
         $place->address = $request->address;
@@ -105,7 +119,7 @@ class PlaceController extends Controller
 
         $place->save();
 
-        return back();
+        return redirect()->action('PlaceController@show',["id" => $id]);
     }
 
     /**
@@ -117,10 +131,11 @@ class PlaceController extends Controller
     public function destroy($id)
     {
         $place = Place::findOrFail($id);
-        $canEdit = true; //Auth::id() === $place->owner_id;
 
-        if($canEdit)
+        if(Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id))
             $place->delete();
-        return back();
+
+        return redirect()->action("PlaceController@index");
     }
+
 }

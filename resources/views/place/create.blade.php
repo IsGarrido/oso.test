@@ -102,18 +102,11 @@
     <div class="control">
         <button class="button is-link is-fullwidth">Enviar</button>
     </div>
-    <div class="control">
-        <button class="button is-text">Cancelar</button>
-    </div>
 
     @if($action == "update")
-
     <span>
         <a class="button is-text" href=" {{ URL::to('places/'.$place->id) }}">Ver</a>
     </span>
-
-
-
     @endif
 </div>
 {{ Form::close() }}

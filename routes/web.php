@@ -15,8 +15,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::resource('places', 'PlaceController')
-->middleware('auth', ['except' => "index"]);
+Route::resource('places', 'PlaceController');
+
+Route::resource('comment', 'CommentController');
 
 Auth::routes();
 

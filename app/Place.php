@@ -10,10 +10,16 @@ class Place extends Model
 {
     use SoftDeletes;
 
+    public $timestamps = true;
+
     protected $fillable = [
         'title', 'address', 'longitude', 'latitude', 'content', 'picture', 'type', 'owner_id'
     ];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 
 }
