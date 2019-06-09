@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => ['checkRole']], function () {
+Route::group(['middleware' => ['checkBlocked']], function () {
 
     Route::get('/', function () {
         return view('index');

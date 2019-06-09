@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
+use App\Place;
 
 class UserController extends Controller
 {
 
-
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('checkAdmin')->except(['show']);
 
     }
 
@@ -55,7 +56,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $places = Place::where("owner_id",$id)->get();
+        return view("user.show", ["user" => $user, "places" => $places ]);
     }
 
     /**
@@ -104,7 +107,7 @@ class UserController extends Controller
         if(Auth::check() && Auth::user()->is_admin)
             $user->save();
 
-        return back();
+        return redirect()->action("PlaceController@index");;
     }
 
 

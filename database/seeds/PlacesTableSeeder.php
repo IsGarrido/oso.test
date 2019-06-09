@@ -24,7 +24,7 @@ class PlacesTableSeeder extends Seeder
 
         $faker = Faker::create("es_ES");
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 3*count($ids)) as $index) {
             Place::create([
                 'title' => $faker->company." ".$faker->companySuffix,
                 'address' => $faker->address,

@@ -19,8 +19,12 @@
             <p class="subtitle">Información</p>
             <ul>
                 <li><b>Dirección: </b>{{ $place->address }}</li>
-            <li><b>Longitud: </b><a href="https://www.google.com/maps/place/{{$place->latitude}},{{ $place->longitude }}/">{{ $place->longitude }}</a></li>
-                <li><b>Latitud: </b><a href="https://www.google.com/maps/place/{{$place->latitude}},{{ $place->longitude }}/">{{ $place->latitude }}</a></li>
+                <li><b>Longitud: </b><a
+                        href="https://www.google.com/maps/place/{{$place->latitude}},{{ $place->longitude }}/">{{ $place->longitude }}</a>
+                </li>
+                <li><b>Latitud: </b><a
+                        href="https://www.google.com/maps/place/{{$place->latitude}},{{ $place->longitude }}/">{{ $place->latitude }}</a>
+                </li>
                 <li><b>Tipo: </b>{{ $place->type }} </li>
             </ul>
 
@@ -39,6 +43,7 @@
         </div>
 
         <!-- Reservas -->
+        @if($place->is_bookable)
         <div class="place-detail">
             <p class="subtitle">Reservar</p>
             {{ Form::open(['action' => ["BookingController@store"]]) }}
@@ -69,6 +74,7 @@
 
             {{ Form::close() }}
         </div>
+        @endif
 
     </div>
 

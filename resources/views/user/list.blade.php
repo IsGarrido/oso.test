@@ -20,15 +20,15 @@
 
         @forelse ($users as $user)
         <tr>
-            <th>{{ $user->name }}</th>
+            <th><a href="{{ action('UserController@show',["id" => $user->id ]) }}">{{ $user->name }}</a></th>
             <td>{{ $user->email }}</td>
             <td>{{ $user->id }}</td>
             <td>{{ $user->created_at->toDateString() }}</td>
             <td>{{ $user->is_blocked === false ? "Activo" : "Bloqueado" }}</td>
             <td>
                 <!-- Edit -->
-                {{ Form::open(["action" => ["UserController@destroy", $user->id], "class" => "is-inline"]) }}
-                @method('delete')
+                {{ Form::open(["action" => ["UserController@edit", $user->id], "class" => "is-inline"]) }}
+                @method('get')
                 {{ Form::button("Editar",["class" => "button is-info   is-inline", "type" => "submit"]) }}
                 {{ Form::close() }}
 

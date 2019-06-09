@@ -41,6 +41,10 @@ class BookingController extends Controller
     {
         $arr = $request->toArray();
         $arr["date"] = Carbon::parse($arr["date"]);
+        $place = Place::findOrFail($arr["place_id"]);
+
+        if(!$place->is_bookable)
+            return abort(401);
 
         $booking = Booking::create($arr);
 
