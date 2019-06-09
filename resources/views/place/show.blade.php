@@ -19,8 +19,8 @@
             <p class="subtitle">Información</p>
             <ul>
                 <li><b>Dirección: </b>{{ $place->address }}</li>
-            <li><b>Longitud: </b><a href="https://www.google.com/maps/place/{{$place->longitude}},{{ $place->latitude }}/">{{ $place->longitude }}</a></li>
-                <li><b>Latitud: </b><a href="https://www.google.com/maps/place/{{$place->longitude}},{{ $place->latitude }}/">{{ $place->latitude }}</a></li>
+            <li><b>Longitud: </b><a href="https://www.google.com/maps/place/{{$place->latitude}},{{ $place->longitude }}/">{{ $place->longitude }}</a></li>
+                <li><b>Latitud: </b><a href="https://www.google.com/maps/place/{{$place->latitude}},{{ $place->longitude }}/">{{ $place->latitude }}</a></li>
                 <li><b>Tipo: </b>{{ $place->type }} </li>
             </ul>
 

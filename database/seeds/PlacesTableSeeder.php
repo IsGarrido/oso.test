@@ -29,7 +29,7 @@ class PlacesTableSeeder extends Seeder
                 'title' => $faker->company." ".$faker->companySuffix,
                 'address' => $faker->address,
                 'content' => $faker->paragraphs(3, true),
-                'picture' => $faker->imageUrl,
+                'picture' => $faker->imageUrl(600,400,"nightlife"),
                 'type' => $faker->randomElement(['Restaurante', 'Bar', 'Cafetería', "Sala de conciertos", "Museo"]),
                 'owner_id' => $faker->randomElement($ids),
                 'latitude' => $faker->latitude,
