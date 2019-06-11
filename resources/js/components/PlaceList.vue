@@ -1,6 +1,6 @@
 <template>
   <div>
-    <place-search @searched="getData"></place-search>
+    <place-search @search-changed="titleChanged()" @type-changed="typeChanged"></place-search>
     <div class="row columns is-multiline is-centered">
       <place-card v-for="place in places" :place="place" v-bind:key="place.id"></place-card>
     </div>
@@ -51,8 +51,13 @@ export default {
 
       console.log("AJAX " + this.text);
     },
-    getData(searchedText) {
+    titleChanged(searchedText) {
       this.text = searchedText;
+      this.page = 0;
+      this.fetchData();
+    },
+    typeChanged(type) {
+      this.type = type;
       this.page = 0;
       this.fetchData();
     },

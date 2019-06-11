@@ -1849,8 +1849,13 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
       });
       console.log("AJAX " + this.text);
     },
-    getData: function getData(searchedText) {
+    titleChanged: function titleChanged(searchedText) {
       this.text = searchedText;
+      this.page = 0;
+      this.fetchData();
+    },
+    typeChanged: function typeChanged(type) {
+      this.type = type;
       this.page = 0;
       this.fetchData();
     },
@@ -1901,16 +1906,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      search: ""
+      search: "",
+      types: [],
+      selectedType: "Todos los tipos"
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    var url = "/api/placetypes";
+    axios.get(url).then(function (response) {
+      console.log(response);
+      _this.types = response.data;
+    });
   },
   methods: {
     searchChanged: function searchChanged() {
-      console.log("Seach changed!!! " + this.search);
-      this.$emit('searched', this.search);
+      this.$emit("search-changed", this.search);
+    },
+    typeChanged: function typeChanged() {
+      if (this.selectedType === "Todos los tipos") this.$emit("type-changed", "");else this.$emit("type-changed", this.selectedType);
     }
   }
 });
@@ -37332,7 +37363,14 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("place-search", { on: { searched: _vm.getData } }),
+      _c("place-search", {
+        on: {
+          "search-changed": function($event) {
+            return _vm.titleChanged()
+          },
+          "type-changed": _vm.typeChanged
+        }
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -37404,11 +37442,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "box" }, [
+  return _c("div", {}, [
     _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column is-one-fifth" }),
+      _c("div", { staticClass: "column is-4" }, [
+        _c("div", { staticClass: "field" }, [
+          _c("div", { staticClass: "control" }, [
+            _c("div", { staticClass: "select is-info is-fullwidth is-large" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedType,
+                      expression: "selectedType"
+                    }
+                  ],
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.selectedType = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      _vm.typeChanged
+                    ]
+                  }
+                },
+                [
+                  _c("option", [_vm._v("Todos los tipos")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.types, function(type) {
+                    return _c(
+                      "option",
+                      { key: type, domProps: { value: type } },
+                      [_vm._v(_vm._s(type))]
+                    )
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      ]),
       _vm._v(" "),
-      _c("div", { staticClass: "column" }, [
+      _c("div", { staticClass: "column is-8" }, [
         _c("div", { staticClass: "field has-addons" }, [
           _c("div", { staticClass: "control is-expanded" }, [
             _c("input", {
@@ -37420,7 +37508,7 @@ var render = function() {
                   expression: "search"
                 }
               ],
-              staticClass: "input",
+              staticClass: "input is-large",
               attrs: { type: "search", placeholder: "Buscar" },
               domProps: { value: _vm.search },
               on: {
@@ -37438,10 +37526,10 @@ var render = function() {
             _c(
               "a",
               {
-                staticClass: "button is-info",
+                staticClass: "button is-info is-large",
                 on: { click: _vm.searchChanged }
               },
-              [_vm._v("Search")]
+              [_vm._v("Buscar")]
             )
           ])
         ])

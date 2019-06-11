@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Request;
+use Illuminate\Http\Request;
+
+use Request as StaticRequest;
 
 use App\Place;
 use App\Comment;
@@ -28,6 +30,7 @@ class PlaceController extends Controller
      */
     public function index()
     {
+        return view("index");
         $places = Place::all();
         return view("place.list", ["places" => $places]);
     }
@@ -174,9 +177,9 @@ class PlaceController extends Controller
     {
 
         $eachPage = 6;
-        $title = Request::input("title");
-        $type = Request::input("type");
-        $page = Request::input("page");
+        $title = StaticRequest::input("title");
+        $type = StaticRequest::input("type");
+        $page = StaticRequest::input("page");
 
         $query = Place::query();
 
@@ -195,12 +198,4 @@ class PlaceController extends Controller
         return \Response::json($arr);
     }
 
-    public function filter($text = "", $type = null)
-    {
-        $query = Place::where("title", "LIKE", "%{$text}%");
-        if ($type != null && $type != "")
-            $query->where("type", $type);
-        $arr = $query->get();
-        return \Response::json($arr);
-    }
 }

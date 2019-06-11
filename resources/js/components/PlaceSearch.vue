@@ -1,34 +1,64 @@
 <template>
-  <div class="box">
+  <div class>
     <div class="columns">
-
-      <div class="column is-one-fifth"></div>
-
-      <div class="column">
-        <div class="field has-addons">
-          <div class="control is-expanded">
-            <input class="input" type="search" placeholder="Buscar" v-model="search">
-          </div>
+      <!-- c1 -->
+      <div class="column is-4">
+        <div class="field">
           <div class="control">
-            <a class="button is-info" @click="searchChanged">Search</a>
+            <div class="select is-info is-fullwidth is-large">
+              <select v-model="selectedType" @change="typeChanged">
+                <option>Todos los tipos</option>
+                <option v-for="type in types" :key="type" :value="type">{{ type }}</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- c2 -->
+      <div class="column is-8">
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input is-large" type="search" placeholder="Buscar" v-model="search">
+          </div>
+          <div class="control">
+            <a class="button is-info is-large" @click="searchChanged">Buscar</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+const axios = require("axios");
+
 export default {
-     data: function(){
-        return { search: "" }
+  data: function() {
+    return {
+      search: "",
+      types: [],
+      selectedType: "Todos los tipos"
+    };
+  },
+  mounted: function() {
+    var url = "/api/placetypes";
+
+    axios.get(url).then(response => {
+      console.log(response);
+      this.types = response.data;
+    });
+  },
+  methods: {
+    searchChanged() {
+      this.$emit("search-changed", this.search);
     },
-    methods: {
-        searchChanged(){
-            console.log("Seach changed!!! " + this.search);
-            this.$emit('searched', this.search);
-        }
+    typeChanged(){
+        if(this.selectedType === "Todos los tipos")
+            this.$emit("type-changed", "");
+        else
+            this.$emit("type-changed",this.selectedType);
     }
+  }
 };
 </script>
