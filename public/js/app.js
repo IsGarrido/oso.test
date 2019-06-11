@@ -37370,9 +37370,7 @@ var render = function() {
     [
       _c("place-search", {
         on: {
-          "search-changed": function($event) {
-            return _vm.titleChanged()
-          },
+          "search-changed": _vm.titleChanged,
           "type-changed": _vm.typeChanged
         }
       }),
@@ -37394,7 +37392,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "button is-fullwidth is-large",
+                staticClass: "button is-fullwidth is-large is-info",
                 on: {
                   click: function($event) {
                     return _vm.prev()
@@ -37410,7 +37408,7 @@ var render = function() {
           _c(
             "button",
             {
-              staticClass: "button is-fullwidth is-large",
+              staticClass: "button is-fullwidth is-large is-info",
               on: {
                 click: function($event) {
                   return _vm.next()

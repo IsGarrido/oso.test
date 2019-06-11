@@ -1,6 +1,6 @@
 <template>
   <div>
-    <place-search @search-changed="titleChanged()" @type-changed="typeChanged"></place-search>
+    <place-search @search-changed="titleChanged" @type-changed="typeChanged"></place-search>
     <div class="row columns is-multiline is-centered">
       <place-card v-for="place in places" :place="place" v-bind:key="place.id"></place-card>
     </div>
@@ -8,10 +8,10 @@
     <!-- BOTONES -->
     <div class="columns">
       <div class="column has-text-centered is-offset-3 is-3">
-        <button class="button is-fullwidth is-large" @click="prev()">&#8592; Anterior página</button>
+        <button class="button is-fullwidth is-large is-info" @click="prev()">&#8592; Anterior página</button>
       </div>
       <div class="column has-text-centered is-3">
-        <button class="button is-fullwidth is-large" @click="next()">Siguiente página &#8594;</button>
+        <button class="button is-fullwidth is-large is-info" @click="next()">Siguiente página &#8594;</button>
       </div>
     </div>
 
