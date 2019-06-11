@@ -27,6 +27,9 @@ Route::group(['middleware' => ['checkBlocked']], function () {
     Route::patch('user/toggleblock/{id}', 'UserController@toggleblock');
     Route::get("book/place/{id}", "BookingController@showplace");
 
+    Route::get("api/placetypes", "PlaceController@types");
+    Route::get("api/place/{query?}", "PlaceController@get");
+
     // Auth
     Auth::routes();
     Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

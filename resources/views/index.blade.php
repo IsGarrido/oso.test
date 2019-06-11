@@ -12,9 +12,10 @@
             <span class="flow-3"></span>
         </div>
         <div class="section">
-                @include('template.search')
 
-            <!-- Developers -->
+        <place-list></place-list>
+
+            <!-- Developers
             <div class="row columns">
                     <div class="column is-one-third">
                         <div class="card large">
@@ -98,7 +99,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- End Developers -->
+                 End Developers -->
         </div>
     </div>
 

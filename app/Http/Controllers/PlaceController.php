@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Request;
 
 use App\Place;
 use App\Comment;
@@ -18,8 +18,7 @@ class PlaceController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
-
+        $this->middleware('auth')->except(['index', 'show', 'get', 'types']);
     }
 
     /**
@@ -30,7 +29,7 @@ class PlaceController extends Controller
     public function index()
     {
         $places = Place::all();
-        return view("place.list",["places" => $places]);
+        return view("place.list", ["places" => $places]);
     }
 
     /**
@@ -41,7 +40,7 @@ class PlaceController extends Controller
     public function create()
     {
         $placeTypes =  Place::groupBy("type")->pluck("type")->toArray();
-        return view("place.create", ["place" => new Place(), "action" => "store", "placeTypes" => $placeTypes ]);
+        return view("place.create", ["place" => new Place(), "action" => "store", "placeTypes" => $placeTypes]);
     }
 
     /**
@@ -64,8 +63,7 @@ class PlaceController extends Controller
             'owner_id' => Auth::id()
         ]);
 
-        return redirect()->action('PlaceController@show',["id" => $place->id]);
-
+        return redirect()->action('PlaceController@show', ["id" => $place->id]);
     }
 
     /**
@@ -82,19 +80,19 @@ class PlaceController extends Controller
         $owner = User::findOrFail($place->owner_id);
         $dates = array();
 
-        for($i = 0; $i < 3; $i++){
-            array_push($dates, Carbon::today()->add($i, 'day')->add(18,'hour'));
-            array_push($dates, Carbon::today()->add($i, 'day')->add(20,'hour'));
-            array_push($dates, Carbon::today()->add($i, 'day')->add(22,'hour'));
+        for ($i = 0; $i < 3; $i++) {
+            array_push($dates, Carbon::today()->add($i, 'day')->add(18, 'hour'));
+            array_push($dates, Carbon::today()->add($i, 'day')->add(20, 'hour'));
+            array_push($dates, Carbon::today()->add($i, 'day')->add(22, 'hour'));
         }
 
-        return view("place.show",[
+        return view("place.show", [
             "place" => $place,
             "comments" => $comments,
             "canEdit" => $canEdit,
             "booking_dates" => $dates,
             "owner" => $owner
-        ] );
+        ]);
     }
 
     /**
@@ -109,11 +107,10 @@ class PlaceController extends Controller
         $canEdit = Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id);
         $placeTypes =  Place::groupBy("type")->pluck("type")->toArray();
 
-        if($canEdit)
-            return view("place.create", ["place" => $place, "action" => "update", "placeTypes" => $placeTypes ] );
+        if ($canEdit)
+            return view("place.create", ["place" => $place, "action" => "update", "placeTypes" => $placeTypes]);
         else
             return redirect()->action("PlaceController@index");
-
     }
 
     /**
@@ -127,7 +124,7 @@ class PlaceController extends Controller
     {
         $place = Place::findOrFail($id);
         $canEdit = Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id);
-        if(!$canEdit)
+        if (!$canEdit)
             return redirect()->action("PlaceController@index");
 
         $place->title = $request->title;
@@ -141,7 +138,7 @@ class PlaceController extends Controller
 
         $place->save();
 
-        return redirect()->action('PlaceController@show',["id" => $id]);
+        return redirect()->action('PlaceController@show', ["id" => $id]);
     }
 
     /**
@@ -155,15 +152,55 @@ class PlaceController extends Controller
         $place = Place::findOrFail($id);
         $comments = Comment::where("place_id", $place->id)->get();
 
-        if(Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id)){
+        if (Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id)) {
 
-            foreach($comments as $comment)
+            foreach ($comments as $comment)
                 $comment->delete();
 
             $place->delete();
         }
 
-        return redirect()->action('UserController@show',["id" => $place->owner_id]);
+        return redirect()->action('UserController@show', ["id" => $place->owner_id]);
     }
 
+    // API LIKE
+    public function types()
+    {
+        $placeTypes =  Place::groupBy("type")->pluck("type");
+        return \Response::json($placeTypes);
+    }
+
+    public function get($text = "")
+    {
+
+        $eachPage = 6;
+        $title = Request::input("title");
+        $type = Request::input("type");
+        $page = Request::input("page");
+
+        $query = Place::query();
+
+        if ($title != null && $title != "")
+            $query->where("title", "LIKE", "%{$title}%");
+
+        if ($type != null && $type != "")
+            $query->where("type", $type);
+
+        if ($page != null && $page != "")
+            $query->skip($page * $eachPage)->take($eachPage);
+
+        $query->orderBy("title");
+
+        $arr = $query->get();
+        return \Response::json($arr);
+    }
+
+    public function filter($text = "", $type = null)
+    {
+        $query = Place::where("title", "LIKE", "%{$text}%");
+        if ($type != null && $type != "")
+            $query->where("type", $type);
+        $arr = $query->get();
+        return \Response::json($arr);
+    }
 }

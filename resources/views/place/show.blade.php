@@ -20,10 +20,10 @@
             <ul>
                 <li><b>Dirección: </b>{{ $place->address }}</li>
                 <li><b>Longitud: </b><a
-                        href="https://www.google.com/maps/place/{{$place->latitude}},{{ $place->longitude }}/">{{ $place->longitude }}</a>
+                        href="https://www.google.com/maps/place/{{$place->latitude}},{{ $place->longitude }}/" target="_blank">{{ $place->longitude }}</a>
                 </li>
                 <li><b>Latitud: </b><a
-                        href="https://www.google.com/maps/place/{{$place->latitude}},{{ $place->longitude }}/">{{ $place->latitude }}</a>
+                        href="https://www.google.com/maps/place/{{$place->latitude}},{{ $place->longitude }}/" target="_blank">{{ $place->latitude }}</a>
                 </li>
                 <li><b>Tipo: </b>{{ $place->type }} </li>
                 <li><b>Dueño</b> {{ $owner->name }} ({{ $owner->email }}) </li>
