@@ -23,13 +23,17 @@ class PlacesTableSeeder extends Seeder
         DB::table('places')->delete();
 
         $faker = Faker::create("es_ES");
+        $images = [];
+        for($i = 1; $i < 12; $i++)
+            $images[$i] = url("places/lorempixel$i.jpg");
 
         foreach (range(1, 3*count($ids)) as $index) {
             Place::create([
                 'title' => $faker->company." ".$faker->companySuffix,
                 'address' => $faker->address,
                 'content' => $faker->paragraphs(3, true),
-                'picture' => $faker->imageUrl(600,400,"nightlife"),
+                //'picture' => $faker->imageUrl(600,400,"nightlife"),
+                'picture' => $faker->randomElement($images),
                 'type' => $faker->randomElement(['Restaurante', 'Bar', 'Cafetería', "Sala de conciertos", "Museo"]),
                 'owner_id' => $faker->randomElement($ids),
                 'latitude' => $faker->latitude,
