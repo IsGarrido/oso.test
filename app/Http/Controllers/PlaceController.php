@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Place;
 use App\Comment;
+use App\User;
 
 use Illuminate\Support\Carbon;
 
@@ -78,6 +79,7 @@ class PlaceController extends Controller
         $place = Place::findOrFail($id);
         $comments = Comment::where("place_id", $id)->get();
         $canEdit = Auth::check() && (Auth::user()->is_admin || Auth::id() == $place->owner_id);
+        $owner = User::findOrFail($place->owner_id);
         $dates = array();
 
         for($i = 0; $i < 3; $i++){
@@ -86,8 +88,13 @@ class PlaceController extends Controller
             array_push($dates, Carbon::today()->add($i, 'day')->add(22,'hour'));
         }
 
-
-        return view("place.show",[ "place" => $place, "comments" => $comments, "canEdit" => $canEdit, "booking_dates" => $dates ] );
+        return view("place.show",[
+            "place" => $place,
+            "comments" => $comments,
+            "canEdit" => $canEdit,
+            "booking_dates" => $dates,
+            "owner" => $owner
+        ] );
     }
 
     /**

@@ -25,7 +25,7 @@
                 @if(Auth::check())
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
-                        Cuenta
+                        Cuenta ({{Auth::user()->name}})
                     </a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item" href="{{ action('UserController@show',["id" => Auth::id() ]) }}">

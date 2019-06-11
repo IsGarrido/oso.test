@@ -21,7 +21,7 @@
         <h1 class="title">Acciones</h1>
         {{ Form::open(["action" => ["UserController@destroy", $user->id], "class" => "is-inline"]) }}
         @method('delete')
-        {{ Form::button("Eliminar mi cuenta",["class" => "button is-danger is-inline", "type" => "submit"]) }}
+        {{ Form::button("Eliminar cuenta",["class" => "button is-danger is-inline", "type" => "submit"]) }}
         {{ Form::close() }}
     </div>
 

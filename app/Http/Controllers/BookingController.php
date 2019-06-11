@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Booking;
 use App\Place;
 
+use Auth;
 use Carbon\Carbon;
 
 class BookingController extends Controller
@@ -97,5 +98,18 @@ class BookingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showPlace($place_id){
+
+
+        $bookings = Booking::where("place_id",$place_id)->get();
+        $place = Place::findOrFail($place_id);
+
+        if(!Auth::check() || (!Auth::user()->is_admin && Auth::id() != $place->owner_id))
+            return redirect()->action("PlaceController@index");
+
+        return view("booking.showplace", ["bookings" => $bookings, "place" => $place]);
+
     }
 }

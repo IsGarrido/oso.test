@@ -17,16 +17,19 @@ Route::group(['middleware' => ['checkBlocked']], function () {
         return view('index');
     });
 
+    // Resources
     Route::resource('places', 'PlaceController');
     Route::resource('comment', 'CommentController');
     Route::resource('user', 'UserController');
     Route::resource('book', 'BookingController');
 
+    // Extra
     Route::patch('user/toggleblock/{id}', 'UserController@toggleblock');
+    Route::get("book/place/{id}", "BookingController@showplace");
 
+    // Auth
     Auth::routes();
     Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-
     Route::get('/home', 'HomeController@index')->name('home');
 
 });

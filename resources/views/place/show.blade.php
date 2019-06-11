@@ -26,6 +26,7 @@
                         href="https://www.google.com/maps/place/{{$place->latitude}},{{ $place->longitude }}/">{{ $place->latitude }}</a>
                 </li>
                 <li><b>Tipo: </b>{{ $place->type }} </li>
+                <li><b>Dueño</b> {{ $owner->name }} ({{ $owner->email }}) </li>
             </ul>
 
             <!-- Controles -->
@@ -45,16 +46,23 @@
         <!-- Reservas -->
         @if($place->is_bookable)
         <div class="place-detail">
-            <p class="subtitle">Reservar</p>
+            <p class="subtitle">
+                Reservar
+
+                @if($canEdit)
+                <span class="is-size-7"><a href="{{ action('BookingController@showplace',$place->_id) }} ">(Ver reservas)</a></span>
+                @endif
+
+            </p>
             {{ Form::open(['action' => ["BookingController@store"]]) }}
             {{ Form::hidden('place_id',$place->id) }}
 
             <div class="columns">
                 <div class="column">
-                    {{ Form::text('name', Auth::check() ? Auth::user()->name : null, ["class" => "input is-info", "placeholder" => 'Nombre']) }}
+                    {{ Form::text('guest_name', Auth::check() ? Auth::user()->name : null, ["class" => "input is-info", "placeholder" => 'Nombre']) }}
                 </div>
                 <div class="column">
-                    {{ Form::text('email', Auth::check() ? Auth::user()->email : null, ["class" => "input is-info is-fullwidth", "placeholder" => 'Mail']) }}
+                    {{ Form::text('guest_email', Auth::check() ? Auth::user()->email : null, ["class" => "input is-info is-fullwidth", "placeholder" => 'Mail']) }}
                 </div>
                 <div class="column">
 

@@ -77,11 +77,10 @@
             <label class="label">Categoría</label>
             <div class="control">
                 <div class="select is-fullwidth">
-
                     <div class="select is-fullwidth">
                         <select name="type">
                             @foreach($placeTypes as $type)
-                            <option value="{{ $type }}" @if($type===$place->type) "selected" @endif>{{ $type }}</option>
+                            <option value="{{ $type }}" @if($type === $place->type) selected @endif>{{ $type }}</option>
                             @endforeach
                         </select>
                     </div>

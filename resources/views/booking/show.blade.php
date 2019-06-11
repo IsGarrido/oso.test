@@ -1,5 +1,7 @@
 @extends('base')
 
+@section('title', "Reserva ".$booking->id )
+
 @section('content')
 
 <div class="container container__base message is-info">
@@ -8,6 +10,7 @@
         <h1 class="title"> Reserva realizada </h1>
         <ul>
             <li><b> Identificador :</b> {{ $booking->id }} </li>
+            {{-- <li><b> Usuario :</b> {{ $booking->guest_name }} ( {{ $booking->guest_email }} )</li> --}}
             <li><b> Lugar :</b> {{ $place->title }} </li>
             <li><b> Fecha :</b> {{ \Carbon\Carbon::parse($booking->date["date"]) }} </li>
             <li><b> Tiempo restante :</b> {{ \Carbon\Carbon::parse($booking->date["date"])->diffForHumans() }} ( Hora
@@ -18,7 +21,7 @@
 
         <hr>
         <div class="no-print">
-            <button class="button is-info" onclick="window.history.back();">Volver</button>
+            <a class="button is-info" href="{{ action('PlaceController@show',$place->id) }}">Volver</a>
             <button class="button is-info" onclick="window.print();">Imprimir</button>
         </div>
 
