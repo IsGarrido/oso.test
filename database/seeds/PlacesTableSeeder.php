@@ -16,7 +16,6 @@ class PlacesTableSeeder extends Seeder
     public function run()
     {
         $ids =  \App\User::where("is_admin", false)->pluck("_id")->toArray();
-        dd($ids);
 
         // Clear db
         DB::table('places')->delete();
