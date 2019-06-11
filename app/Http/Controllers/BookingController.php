@@ -49,6 +49,8 @@ class BookingController extends Controller
 
         $booking = Booking::create($arr);
 
+        mail($booking->guest_email, "Reserva con id " . $booking->id, "La reserva para el día " . $booking->date . " se ha realizado con exíto.\nPuede consultar más información en el enlace " . action("BookingController@show", ["id" => $booking->id]) );
+
         return redirect()->action('BookingController@show', ["id" => $booking->id]);
     }
 
