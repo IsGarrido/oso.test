@@ -37515,12 +37515,15 @@ var render = function() {
               attrs: { type: "search", placeholder: "Buscar" },
               domProps: { value: _vm.search },
               on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.search = $event.target.value
-                }
+                input: [
+                  function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.search = $event.target.value
+                  },
+                  _vm.searchChanged
+                ]
               }
             })
           ]),

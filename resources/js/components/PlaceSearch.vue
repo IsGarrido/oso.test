@@ -19,7 +19,7 @@
       <div class="column is-6">
         <div class="field has-addons">
           <div class="control is-expanded">
-            <input class="input is-large" type="search" placeholder="Buscar" v-model="search">
+            <input @input="searchChanged" class="input is-large" type="search" placeholder="Buscar" v-model="search" >
           </div>
           <div class="control">
             <a class="button is-info is-large" @click="searchChanged">Buscar</a>
