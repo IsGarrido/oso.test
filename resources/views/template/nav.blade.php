@@ -13,12 +13,18 @@
         </div>
         <div id="navbarMenu" class="navbar-menu">
             <div class="navbar-end">
+                <!--
                 <a class="navbar-item" href="{{ action('PlaceController@index') }}">
                     Listado de lugares
                 </a>
+            -->
                 @if(!Auth::check())
                 <a class="navbar-item" href="/login">
                     Entrar
+                </a>
+
+                <a class="navbar-item" href="/register">
+                    Registro
                 </a>
                 @endif
 

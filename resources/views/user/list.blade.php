@@ -1,6 +1,6 @@
 @extends('user.user')
 
-@section('title', "List")
+@section('title', "Panel de administración. Ususarios.")
 
 
 

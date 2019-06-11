@@ -15,9 +15,8 @@ class PlacesTableSeeder extends Seeder
      */
     public function run()
     {
-        $ids = User::all("id")->map(function ($user) {
-            return $user->_id;
-        });
+        $ids =  \App\User::where("is_admin", false)->pluck("_id")->toArray();
+        dd($ids);
 
         // Clear db
         DB::table('places')->delete();
@@ -25,7 +24,7 @@ class PlacesTableSeeder extends Seeder
         $faker = Faker::create("es_ES");
         $images = [];
         for($i = 1; $i < 12; $i++)
-            $images[$i] = url("places/lorempixel$i.jpg");
+            $images[$i] = url("placeimages/lorempixel$i.jpg");
 
         foreach (range(1, 3*count($ids)) as $index) {
             Place::create([

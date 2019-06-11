@@ -1,6 +1,6 @@
 @extends('place.places')
 
-@section('title', $action == "update" ? 'Actualizar nueva localización' : "Crear nueva localización" )
+@section('title', $action == "update" ? 'Actualizar localización' : "Crear nueva localización" )
 
 @section('content2')
 

@@ -92,6 +92,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+        if ($user->is_admin)
+            return redirect()->action("PlaceController@index");
+
         $places = Place::where("owner_id", $id)->get();
 
         if (!Auth::check() || (!Auth::user()->is_admin && Auth::id() != $user->id))
