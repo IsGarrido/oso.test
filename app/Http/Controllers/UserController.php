@@ -43,7 +43,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->action("PlaceController@index");
     }
 
     /**
@@ -67,7 +67,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return redirect()->action("PlaceController@index");
     }
 
     /**
@@ -79,7 +79,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return redirect()->action("PlaceController@index");
     }
 
     /**

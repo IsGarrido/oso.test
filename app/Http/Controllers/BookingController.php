@@ -19,7 +19,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        return redirect()->action("PlaceController@index");
     }
 
     /**
@@ -29,7 +29,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->action("PlaceController@index");
     }
 
     /**
@@ -44,13 +44,12 @@ class BookingController extends Controller
         $arr["date"] = Carbon::parse($arr["date"]);
         $place = Place::findOrFail($arr["place_id"]);
 
-        if(!$place->is_bookable)
+        if (!$place->is_bookable)
             return abort(401);
 
         $booking = Booking::create($arr);
 
-        return redirect()->action('BookingController@show',["id" => $booking->id]);
-
+        return redirect()->action('BookingController@show', ["id" => $booking->id]);
     }
 
     /**
@@ -63,7 +62,7 @@ class BookingController extends Controller
     {
         $booking = Booking::findOrFail($id);
         $place = Place::findOrFail($booking->place_id);
-        return view("booking.show", ["booking" => $booking, "place" => $place ]);
+        return view("booking.show", ["booking" => $booking, "place" => $place]);
     }
 
     /**
@@ -74,7 +73,7 @@ class BookingController extends Controller
      */
     public function edit($id)
     {
-        //
+        return redirect()->action("PlaceController@index");
     }
 
     /**
@@ -86,7 +85,7 @@ class BookingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return redirect()->action("PlaceController@index");
     }
 
     /**
@@ -97,19 +96,19 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return redirect()->action("PlaceController@index");
     }
 
-    public function showPlace($place_id){
+    public function showPlace($place_id)
+    {
 
 
-        $bookings = Booking::where("place_id",$place_id)->get();
+        $bookings = Booking::where("place_id", $place_id)->get();
         $place = Place::findOrFail($place_id);
 
-        if(!Auth::check() || (!Auth::user()->is_admin && Auth::id() != $place->owner_id))
+        if (!Auth::check() || (!Auth::user()->is_admin && Auth::id() != $place->owner_id))
             return redirect()->action("PlaceController@index");
 
         return view("booking.showplace", ["bookings" => $bookings, "place" => $place]);
-
     }
 }
