@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth;
 use App\Place;
+use App\Comment;
 
 class UserController extends Controller
 {
@@ -13,7 +14,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('checkAdmin')->except(['show','destroy']);
+        $this->middleware('checkAdmin')->except(['show', 'destroy']);
     }
 
     /**
@@ -91,8 +92,23 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        if (Auth::check() && (Auth::user()->is_admin || Auth::user()->id === $id))
-            $user->delete();
+        $places = Place::where("owner_id", $id)->get();
+
+        if (!Auth::check() || (!Auth::user()->is_admin && Auth::id() != $user->id))
+            return redirect()->action("PlaceController@index");
+
+        foreach ($places as $place) {
+
+            $comments = Comment::where("place_id", $place->id)->get();
+            foreach ($comments as $comment)
+                $comment->delete();
+
+            $place->delete();
+        }
+
+        $user->delete();
+
+
 
         return redirect()->action("PlaceController@index");;
     }

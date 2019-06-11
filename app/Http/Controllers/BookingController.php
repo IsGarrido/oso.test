@@ -102,7 +102,6 @@ class BookingController extends Controller
     public function showPlace($place_id)
     {
 
-
         $bookings = Booking::where("place_id", $place_id)->get();
         $place = Place::findOrFail($place_id);
 

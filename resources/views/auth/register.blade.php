@@ -1,5 +1,7 @@
 @extends('user.user')
 
+@section('title', 'Registro' )
+
 @section('content2')
 <form method="POST" action="{{ route('register') }}">
     @csrf

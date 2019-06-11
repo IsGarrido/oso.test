@@ -27,7 +27,7 @@
             <td>{{ $user->is_blocked === false ? "Activo" : "Bloqueado" }}</td>
             <td>
                 <!-- Edit -->
-                {{ Form::open(["action" => ["UserController@edit", $user->id], "class" => "is-inline"]) }}
+                {{ Form::open(["action" => ["UserController@show", $user->id], "class" => "is-inline"]) }}
                 @method('get')
                 {{ Form::button("Editar",["class" => "button is-info   is-inline", "type" => "submit"]) }}
                 {{ Form::close() }}

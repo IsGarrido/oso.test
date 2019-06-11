@@ -163,7 +163,6 @@ class PlaceController extends Controller
             $place->delete();
         }
 
-
         return redirect()->action('UserController@show',["id" => $place->owner_id]);
     }
 
