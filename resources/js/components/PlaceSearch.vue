@@ -16,7 +16,7 @@
       </div>
 
       <!-- c2 -->
-      <div class="column is-8">
+      <div class="column is-6">
         <div class="field has-addons">
           <div class="control is-expanded">
             <input class="input is-large" type="search" placeholder="Buscar" v-model="search">
@@ -25,6 +25,11 @@
             <a class="button is-info is-large" @click="searchChanged">Buscar</a>
           </div>
         </div>
+      </div>
+
+      <!-- c3 -->
+      <div class="column is-2">
+            <a class="button is-primary is-large is-fullwidth" href="/places/create" >&#43; Nuevo</a>
       </div>
     </div>
   </div>
@@ -53,11 +58,10 @@ export default {
     searchChanged() {
       this.$emit("search-changed", this.search);
     },
-    typeChanged(){
-        if(this.selectedType === "Todos los tipos")
-            this.$emit("type-changed", "");
-        else
-            this.$emit("type-changed",this.selectedType);
+    typeChanged() {
+      if (this.selectedType === "Todos los tipos")
+        this.$emit("type-changed", "");
+      else this.$emit("type-changed", this.selectedType);
     }
   }
 };

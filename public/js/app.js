@@ -1917,6 +1917,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -37496,7 +37501,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "column is-8" }, [
+      _c("div", { staticClass: "column is-6" }, [
         _c("div", { staticClass: "field has-addons" }, [
           _c("div", { staticClass: "control is-expanded" }, [
             _c("input", {
@@ -37533,11 +37538,29 @@ var render = function() {
             )
           ])
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "column is-2" }, [
+      _c(
+        "a",
+        {
+          staticClass: "button is-primary is-large is-fullwidth",
+          attrs: { href: "/places/create" }
+        },
+        [_vm._v("+ Nuevo")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
