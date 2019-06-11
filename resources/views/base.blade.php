@@ -19,7 +19,6 @@
 
     <div id="app">
         @yield('content')
-        <example-component></example-component>
     </div>
 
     <script src="{{ asset('js/bulma.js') }}"></script>
