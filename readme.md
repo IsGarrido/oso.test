@@ -13,7 +13,7 @@ Tiene
 
 Tech Stack:
 
-- Servidor (PHP)
+- Servidor (PHP 7.1.3)
     - Laravel 5
     - Faker
     - jenssegers/mongodb
@@ -29,6 +29,9 @@ Cliente
 BBDD:
     - MongoDB
     
+Herramientas:
+    - Laragon
+    - Visual Studio Code
     
 Para echarlo a andar:
 - Preparar un servidor local tipo XAMPP, recomiendo Laragon
