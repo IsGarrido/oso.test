@@ -1,15 +1,20 @@
 # Oso.test (Ocio Solo Ocio)
 Aplicación rápida para una prueba de programación. 
 
+![index.png](_pantallazos/index.png)
+
 Tiene
-- Front con una selección de lugares de ocio
-- Back con un CRUD para operar sobre los datos.
-- Login/registro de usuarios
-- Valoraciones y comentarios sobre los lugares.
-- Busqueda en tiempo real XHR, Vue
-- Generador de datos aleatorios para agilizar el desarrollo, incluyendo imágenes y coordenadas de los sitios
+- Front con una selección de lugares de ocio [🔗](_pantallazos/index.png)
+- Back con un CRUD para operar sobre los datos. [🔗](_pantallazos/editar.png)
+- Login/registro de usuarios [🔗](_pantallazos/login.png)
+- Valoraciones y comentarios sobre los lugares. [🔗](_pantallazos/comentarios.png)
+- Busqueda en tiempo real XHR, Vue [🔗](_pantallazos/filtrar.png)
+- Generador de datos aleatorios para agilizar el desarrollo, incluyendo imágenes y coordenadas de los sitios 
 - Los datos se almacenan en MongoDb usando una implementación del ORM de laravel (Eloquent -> Moloquent)
 - Seguridad (SQL, CSRF, Auth,...)
+ 
+> Pantallazos [🔗](_pantallazos/)
+
 
 Tech Stack:
 
