@@ -24,14 +24,14 @@ Tech Stack:
     - jenssegers/mongodb  
     - Dependencias via composer  
  
-Cliente   
+- Cliente   
     - Vue (JS)  
     - Blade (PHP)  
     - Bulma (CSS)  
     - Font Awesome (Iconos)  
     - Dependencias via npm  
 
-BBDD:  
+- BBDD:  
     - MongoDB  
 
 Requisitos:   
